@@ -9,6 +9,7 @@ package GUI.Views;
 
 import GUI.Controllers.MainController;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -38,7 +39,12 @@ public class MainView {
     }
 
     private VBox mainContainer() {
+        VBox container = new VBox();
+        TextField field = controller.createTextField();
+        controller.formatTextField(field);
         /*-- Add children elements --*/
-        return new VBox();
+        container.getChildren().add(field);
+
+        return container;
     }
 }
