@@ -2,3 +2,4 @@
 
 *.class
 Sudoku-Solver.iml
+out/production/Sudoku-Solver/GUI/Resources/MainView.css
