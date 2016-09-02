@@ -8,9 +8,11 @@ package GUI.Views;
  */
 
 import GUI.Controllers.MainController;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -32,18 +34,22 @@ public class MainView {
         BorderPane root = new BorderPane();
         root.getStyleClass().add("root");
         root.setCenter(mainContainer());
-        Scene mainScene = new Scene(root, 300, 240, Color.TRANSPARENT);
+        Scene mainScene = new Scene(root, 800, 600, Color.TRANSPARENT);
         mainStage.setScene(mainScene);
         mainScene.getStylesheets().add(this.getClass().getResource("/GUI/Resources/MainView.css").toExternalForm());
         return mainStage;
     }
+    private HBox mainContainer() {
+        HBox container = new HBox();
+        container.setSpacing(5);
+        container.setPadding(new Insets(5,5,5,5));
+        for (int i = 0; i < 10 ; i++) {
+            TextField field = controller.createTextField();
+            controller.formatTextField(field);
+            container.getChildren().add(field);
+        }
 
-    private VBox mainContainer() {
-        VBox container = new VBox();
-        TextField field = controller.createTextField();
-        controller.formatTextField(field);
         /*-- Add children elements --*/
-        container.getChildren().add(field);
 
         return container;
     }

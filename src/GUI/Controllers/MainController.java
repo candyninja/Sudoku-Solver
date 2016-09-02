@@ -1,10 +1,8 @@
 package GUI.Controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 /*
  * The MainController is meant to host all
@@ -43,6 +41,7 @@ public class MainController {
     /* Styles textFields to fit a specific format. Useful for generating a large amount of identical nodes. */
     public void formatTextField(TextField textField){
         textField.setMaxSize(25,10);
+        textField.setPadding(new Insets(5.5,15,5,5));
         textField.getStyleClass().add("textField");
     }
     /* TODO: Implement method to substring every input to 1 character before solving. Listeners may be too resource heavy? */
