@@ -1,4 +1,5 @@
 import GUI.Views.MainView;
+import Solver.Methods.TestSolver;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -8,6 +9,10 @@ import javafx.stage.Stage;
 * */
 public class Launch extends Application {
     public static void main(String[] args) {
+
+        TestSolver test = new TestSolver();
+        test.testSudoku();
+
         launch(args);
     }
 
