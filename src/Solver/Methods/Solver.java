@@ -1,5 +1,4 @@
 package Solver.Methods;
-
 /**
  * All the code that solves a sudoku board.
  */
@@ -22,7 +21,6 @@ public class Solver implements Solvable {
     // x is row number, y is column number. Returns true if check is a possible answer at that location
     public boolean checkCandidate(int x, int y, int check, int[][] sudoku) {
         boolean possible = true;
-
         for (int k = 0; k < 9; k++) {
             if (k != y) {
                 if (sudoku[x][k] == check) {
@@ -131,7 +129,6 @@ public class Solver implements Solvable {
                 solution[i][j] = sudoku[i][j];
             }
         }
-
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {

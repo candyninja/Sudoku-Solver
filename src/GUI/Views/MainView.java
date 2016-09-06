@@ -84,17 +84,11 @@ public class MainView {
         grid.setPadding(new Insets(5, 5, 5, 5));
         for (int i = 1; i < 10; i++) {
             for (int j = 1; j < 10; j++) {
-
-                TextField field = controller.createTextField();
-                controller.formatTextField(field);
-                controller.addBoardField(j - 1, i - 1, field);
-                if (j % 3 == 0 && j < 9) {
-                    GridPane.setMargin(field, new Insets(0, 3, 0, 0));
-                }
-                if (i % 3 == 0 && i < 9) {
-                    GridPane.setMargin(field, new Insets(0, 0, 3, 0));
-                }
-                grid.addRow(i, field);
+                TextField textField = controller.createTextField();
+                controller.formatTextField(textField);
+                controller.addBoardField(j - 1, i - 1, textField);
+                controller.formatBoard(i,j,textField);
+                grid.addRow(i, textField);
             }
         }
 

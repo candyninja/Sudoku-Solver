@@ -4,6 +4,10 @@ import Solver.Methods.Solver;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 /*
@@ -52,46 +56,85 @@ public class MainController {
         textField.getStyleClass().add("textField");
     }
 
+    public void formatBoard(int i, int j,TextField textField){
+        if (j % 3 == 0) {
+            GridPane.setMargin(textField, new Insets(0, 10, 0, 0));
+        }
+        if (i % 3 == 0) {
+            GridPane.setMargin(textField, new Insets(0, 0, 10, 0));
+        }
+    }
+
     /* Iterates all textFields and resets the text. */
     public void clearBoard() {
         for (TextField[] textRow : boardField) {
             for (TextField textField : textRow) {
                 textField.setText("");
+                enableTextField(textField);
+                textField.getStyleClass().remove("solved");
             }
         }
     }
+    public static <T> boolean hasDuplicate(Iterable<T> all) {
+        Set<T> set = new HashSet<T>();
+        for (T each: all) if (!set.add(each)) return true;
+        return false;
+    }
+    private boolean inputCheck() {
+        for (TextField[] textRow : boardField){
+            Set<TextField> textFieldSet = new HashSet<>();
+            int inputs = 0;
+            for (TextField textField : textRow){
+                if(!textField.getText().equals("")) {
+                    inputs++;
+                    textFieldSet.add(textField);
+                }
+            }
+            if(textFieldSet.size() != inputs ) {return false;}
+        }
+        return true;
+    }
 
+    //TODO ensure check for valid input - crashes otherwise!
     //Gets input from the boardField array and solves the sudoku and puts the solution on the boardField
     public void solveSudoku() {
-        int[][] sudokuInput = new int[9][9];
-        int[][] solutionOutput;
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (boardField[i][j].getText().length() == 0) {
-                    sudokuInput[i][j] = 0;
-                } else {
-                    sudokuInput[i][j] = Integer.parseInt(boardField[i][j].getText());
+        if (inputCheck()) {
+            int[][] sudokuInput = new int[9][9];
+            int[][] solutionOutput;
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (boardField[i][j].getText().length() == 0) {
+                        sudokuInput[i][j] = 0;
+                    } else {
+                        sudokuInput[i][j] = Integer.parseInt(boardField[i][j].getText());
+                    }
                 }
             }
-        }
 
-        solver.setSudoku(sudokuInput);
-        solver.solve();
-        solutionOutput = solver.getSolution();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (boardField[i][j].getText().length() == 0) {
-                    boardField[i][j].setText("" + solutionOutput[i][j]);
-                    disableTextField(boardField[i][j]);
+            solver.setSudoku(sudokuInput);
+            solver.solve();
+            solutionOutput = solver.getSolution();
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (boardField[i][j].getText().length() == 0) {
+                        boardField[i][j].setText("" + solutionOutput[i][j]);
+                        disableTextField(boardField[i][j]);
+                        setSolved(boardField[i][j]);
+                    }
                 }
             }
+        } else {
+            System.out.println("WRONG");
         }
-
     }
 
     /* Used for textFields that are displayed as a solution */
     private void disableTextField(TextField textField) {
         textField.setEditable(false);
     }
+    private void enableTextField(TextField textField) {
+        textField.setEditable(true);
+    }
+    private void setSolved(TextField textField){textField.getStyleClass().add("solved");}
 
 }

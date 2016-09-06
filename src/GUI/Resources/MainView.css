@@ -17,6 +17,10 @@
     -fx-padding: 5px;
 }
 
+.solved {
+    -fx-background-color: #273747 !important;
+}
+
 .title {
     -fx-font-weight: bold;
     -fx-text-fill: white;
