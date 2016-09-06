@@ -3,7 +3,7 @@ package Solver.Methods;
 /**
  * All the code that solves a sudoku board.
  */
-class Solver implements Solvable {
+public class Solver implements Solvable {
     private int[][] sudoku = new int[9][9];
     private int[][] solution = new int[9][9];
 
@@ -167,7 +167,7 @@ class Solver implements Solvable {
                             j = 8;
                         }
 
-                        //If previous cell is a part of the original sudoku question then goes to previous cell again
+                        //If previous cell is a part of the original sudoku puzzle then sets iteration to previous cell again
                         while (sudoku[i][j] != 0) {
                             if (j == 0) {
                                 if (i != 0) {

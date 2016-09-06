@@ -86,7 +86,7 @@ public class TestSolver {
         System.out.println("Test Started");
         getSudoku("Sudoku.txt", sudoku);
         solver.setSudoku(sudoku);
-        writeSudoku(solver.getSudoku(), "Sudoku");
+        //writeSudoku(solver.getSudoku(), "Sudoku");
         solver.solve();
 
         if (checkSolution("Sudoku.txt", solver.getSolution())) {
@@ -94,6 +94,6 @@ public class TestSolver {
         } else {
             System.out.println("Test Failed");
         }
-        writeSudoku(solver.getSolution(), "Solution");
+        //writeSudoku(solver.getSolution(), "Solution");
     }
 }

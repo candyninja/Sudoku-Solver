@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 * */
 public class Launch extends Application {
     public static void main(String[] args) {
-        TestSolver test = new TestSolver();
-        test.doTest();
+        TestSolver testSudoku = new TestSolver();
+        testSudoku.doTest();
         launch(args);
 
     }
