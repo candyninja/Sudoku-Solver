@@ -10,11 +10,10 @@ import javafx.stage.Stage;
 * */
 public class Launch extends Application {
     public static void main(String[] args) {
-
         TestSolver test = new TestSolver();
-        test.testSudoku();
-
+        test.doTest();
         launch(args);
+
     }
 
     @Override
