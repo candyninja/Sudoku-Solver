@@ -1,4 +1,5 @@
 import GUI.Views.MainView;
+import Solver.Methods.TestSolver;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -9,7 +10,10 @@ import javafx.stage.Stage;
 * */
 public class Launch extends Application {
     public static void main(String[] args) {
+        TestSolver testSudoku = new TestSolver();
+        testSudoku.doTest();
         launch(args);
+
     }
 
     @Override

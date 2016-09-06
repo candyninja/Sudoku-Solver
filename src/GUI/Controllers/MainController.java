@@ -1,7 +1,8 @@
 package GUI.Controllers;
 
+import Solver.Methods.Solver;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 
 
@@ -12,29 +13,7 @@ import javafx.scene.control.TextField;
 public class MainController {
 
     private TextField[][] boardField = new TextField[9][9];
-
-    /* So this is probably more work than it was worth. The idea is you can
-    * add actions to nodes based on both the action type, and the action to be
-    * completed. Currently there's a click action (set on mouseClicked), when
-    * calling addAction, write "click", and then create a case for the action that
-    * is to occur. The "clear" action calls the clearBoard() method. */
-    public void addAction(String actionType, Node actionRecipient, String action) {
-        switch (actionType) {
-            case "click":
-                actionRecipient.setOnMouseClicked(event -> {
-                    switch (action) {
-                        case "clear":
-                            clearBoard();
-                            break;
-                        default:
-                            break;
-                    }
-                });
-                break;
-            default:
-                break;
-        }
-    }
+    private Solver solver = new Solver();
 
     /* Automatically adds TextFields to the board when they're created. They should be
     * dynamic and used with the getText method. */
@@ -67,6 +46,8 @@ public class MainController {
     /* Styles textFields to fit a specific format. Useful for generating a large amount of identical nodes. */
     public void formatTextField(TextField textField) {
         textField.setMaxSize(25, 10);
+        textField.setMinWidth(30);
+        textField.setAlignment(Pos.CENTER);
         textField.setPadding(new Insets(5.5, 15, 5, 5));
         textField.getStyleClass().add("textField");
     }
@@ -80,8 +61,36 @@ public class MainController {
         }
     }
 
+    //Gets input from the boardField array and solves the sudoku and puts the solution on the boardField
+    public void solveSudoku() {
+        int[][] sudokuInput = new int[9][9];
+        int[][] solutionOutput;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (boardField[i][j].getText().length() == 0) {
+                    sudokuInput[i][j] = 0;
+                } else {
+                    sudokuInput[i][j] = Integer.parseInt(boardField[i][j].getText());
+                }
+            }
+        }
+
+        solver.setSudoku(sudokuInput);
+        solver.solve();
+        solutionOutput = solver.getSolution();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (boardField[i][j].getText().length() == 0) {
+                    boardField[i][j].setText("" + solutionOutput[i][j]);
+                    disableTextField(boardField[i][j]);
+                }
+            }
+        }
+
+    }
+
     /* Used for textFields that are displayed as a solution */
-    public void disableTextField(TextField textField) {
+    private void disableTextField(TextField textField) {
         textField.setEditable(false);
     }
 

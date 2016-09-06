@@ -46,7 +46,7 @@ public class MainView {
         root.setCenter(mainContainer());
         root.setBottom(buttons());
 
-        Scene mainScene = new Scene(root, 350, 500, Color.TRANSPARENT);
+        Scene mainScene = new Scene(root, 350, 450, Color.TRANSPARENT);
         mainStage.setScene(mainScene);
         mainScene.getStylesheets().add(this.getClass().getResource("/GUI/Resources/MainView.css").toExternalForm());
 
@@ -79,14 +79,21 @@ public class MainView {
         mainContainer.setAlignment(Pos.CENTER);
 
         GridPane grid = new GridPane();
-        grid.setHgap(8);
-        grid.setVgap(8);
+        grid.setHgap(4);
+        grid.setVgap(4);
         grid.setPadding(new Insets(5, 5, 5, 5));
         for (int i = 1; i < 10; i++) {
             for (int j = 1; j < 10; j++) {
+
                 TextField field = controller.createTextField();
                 controller.formatTextField(field);
                 controller.addBoardField(j - 1, i - 1, field);
+                if (j % 3 == 0 && j < 9) {
+                    GridPane.setMargin(field, new Insets(0, 3, 0, 0));
+                }
+                if (i % 3 == 0 && i < 9) {
+                    GridPane.setMargin(field, new Insets(0, 0, 3, 0));
+                }
                 grid.addRow(i, field);
             }
         }
@@ -99,21 +106,18 @@ public class MainView {
         HBox buttons = new HBox();
         HBox.setHgrow(buttons, Priority.ALWAYS);
         buttons.setAlignment(Pos.CENTER);
-        buttons.setPadding(new Insets(0, 0, 50, 0));
+        buttons.setPadding(new Insets(0, 0, 20, 0));
         buttons.setSpacing(50);
 
-        Button clear = new Button("Clear board");
-        Class[] parameterTypes = new Class[1];
-        parameterTypes[0] = Void.class;
-        controller.addAction("click", clear, "clear");
+        Button clear = new Button("Clear Board");
+        clear.setOnAction((ae) -> controller.clearBoard());
         clear.setPrefHeight(35);
         clear.getStyleClass().add("button");
-
 
         Button solve = new Button("Solve");
         solve.setPrefHeight(35);
         solve.getStyleClass().add("button");
-
+        solve.setOnAction((ae) -> controller.solveSudoku());
         buttons.getChildren().add(clear);
         buttons.getChildren().add(solve);
         return buttons;
