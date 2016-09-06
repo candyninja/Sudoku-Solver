@@ -1,5 +1,6 @@
 import GUI.Views.MainView;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /*
@@ -15,7 +16,7 @@ public class Launch extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage = new MainView().getStage();
         primaryStage.setTitle("Sudoku Solver");
-        /*TODO: Set window icon*/
+        primaryStage.getIcons().add(new Image("GUI/Resources/cube.png"));
         primaryStage.show();
     }
 }
