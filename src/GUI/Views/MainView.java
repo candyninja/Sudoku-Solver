@@ -35,7 +35,6 @@ public class MainView {
      * stage.
      */
 
-    /* TODO: Figure out how to add lines to separate each 3x3 square.  */
     public Stage getStage() throws NoSuchMethodException {
         mainStage.resizableProperty().setValue(false);
 
@@ -78,10 +77,11 @@ public class MainView {
         HBox.setHgrow(mainContainer, Priority.ALWAYS);
         mainContainer.setAlignment(Pos.CENTER);
 
+        //TODO fix the small padding issue on the right side - right is larger than left side.
         GridPane grid = new GridPane();
         grid.setHgap(4);
         grid.setVgap(4);
-        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.setPadding(new Insets(5, 5, 0, 5));
         for (int i = 1; i < 10; i++) {
             for (int j = 1; j < 10; j++) {
                 TextField textField = controller.createTextField();
@@ -91,7 +91,6 @@ public class MainView {
                 grid.addRow(i, textField);
             }
         }
-
         mainContainer.getChildren().add(grid);
         return mainContainer;
     }

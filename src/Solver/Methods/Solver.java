@@ -2,6 +2,7 @@ package Solver.Methods;
 /**
  * All the code that solves a sudoku board.
  */
+//TODO try to minimize code -- make more simple, modular, etc.
 public class Solver implements Solvable {
     private int[][] sudoku = new int[9][9];
     private int[][] solution = new int[9][9];

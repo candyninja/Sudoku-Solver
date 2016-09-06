@@ -3,9 +3,13 @@ package GUI.Controllers;
 import Solver.Methods.Solver;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,17 +84,28 @@ public class MainController {
         for (T each: all) if (!set.add(each)) return true;
         return false;
     }
+
+    //TODO change textField border color to red if invalid
+    //TODO try to style alert dialog
+    private void showInputWarning() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input Error");
+        alert.setContentText("Check to ensure that the input is a valid sudoku game.");
+        alert.showAndWait();
+    }
+
+    //TODO verify both rows and columns
     private boolean inputCheck() {
-        for (TextField[] textRow : boardField){
-            Set<TextField> textFieldSet = new HashSet<>();
+            Set<String> textColumnSet = new HashSet<>();
             int inputs = 0;
-            for (TextField textField : textRow){
+        for (TextField[] textColumn : boardField){
+            for (TextField textField : textColumn){
                 if(!textField.getText().equals("")) {
                     inputs++;
-                    textFieldSet.add(textField);
+                    textColumnSet.add(textField.getText());
                 }
             }
-            if(textFieldSet.size() != inputs ) {return false;}
+            if(textColumnSet.size() != inputs ) {return false;}
         }
         return true;
     }
@@ -124,7 +139,7 @@ public class MainController {
                 }
             }
         } else {
-            System.out.println("WRONG");
+            showInputWarning();
         }
     }
 

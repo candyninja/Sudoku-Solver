@@ -5,6 +5,7 @@ import java.io.*;
 /**
  * Code for testing algorithms
  */
+//TODO make a JUnit 4 test, not custom
 public class TestSolver {
 
     private static void writeSudoku(int[][] sudoku, String input) {
