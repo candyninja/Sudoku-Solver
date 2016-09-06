@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 * This class does should not contain any methods or functionality.
 * This will only call the JavaFX Application to show.
 * */
+//TODO fix bug where stage change makes new window
 public class Launch extends Application {
     Stage oldStage = null;
     public static void main(String[] args) {
