@@ -7,3 +7,10 @@
     /* Styles for main application window go here */
 }
 
+.textField {
+    -fx-background-color: whitesmoke;
+    -fx-border-width:1px;
+    -fx-border-color: darkgrey;
+    -fx-padding: 5px;
+}
+
