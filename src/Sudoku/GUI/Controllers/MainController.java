@@ -1,15 +1,13 @@
-package GUI.Controllers;
+package Sudoku.GUI.Controllers;
 
-import Solver.Methods.Solver;
+import Sudoku.GUI.Views.PlayView;
+import Sudoku.Launch;
+import Sudoku.Solver.Methods.Solver;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -95,6 +93,7 @@ public class MainController {
     }
 
     //TODO verify both rows and columns
+    //TODO BUG! It says any board with 2 of the same number is invalid.
     private boolean inputCheck() {
             Set<String> textColumnSet = new HashSet<>();
             int inputs = 0;
@@ -143,6 +142,10 @@ public class MainController {
         }
     }
 
+    public void switchToPlayView() throws NoSuchMethodException {
+        Launch launch = new Launch();
+        launch.setStage(new PlayView().getStage(),"Play Sudoku");
+    }
     /* Used for textFields that are displayed as a solution */
     private void disableTextField(TextField textField) {
         textField.setEditable(false);

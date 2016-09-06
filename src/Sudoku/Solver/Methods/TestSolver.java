@@ -1,4 +1,4 @@
-package Solver.Methods;
+package Sudoku.Solver.Methods;
 
 import java.io.*;
 

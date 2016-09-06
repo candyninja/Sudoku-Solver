@@ -1,4 +1,4 @@
-package Solver.Methods;
+package Sudoku.Solver.Methods;
 /**
  * All the code that solves a sudoku board.
  */

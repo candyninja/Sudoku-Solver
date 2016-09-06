@@ -1,4 +1,4 @@
-package GUI.Views;
+package Sudoku.GUI.Views;
 /*
 * MainView is the first user-facing UI to be displayed.
 * Any View classes should not contain functional code,
@@ -7,7 +7,7 @@ package GUI.Views;
 * elements.
  */
 
-import GUI.Controllers.MainController;
+import Sudoku.GUI.Controllers.MainController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -47,7 +47,7 @@ public class MainView {
 
         Scene mainScene = new Scene(root, 350, 450, Color.TRANSPARENT);
         mainStage.setScene(mainScene);
-        mainScene.getStylesheets().add(this.getClass().getResource("/GUI/Resources/MainView.css").toExternalForm());
+        mainScene.getStylesheets().add(this.getClass().getResource("/Sudoku/GUI/Resources/MainView.css").toExternalForm());
 
         return mainStage;
     }
@@ -59,7 +59,7 @@ public class MainView {
         titleBox.setSpacing(10);
         titleBox.setPadding(new Insets(15, 0, 15, 0));
 
-        ImageView logo = new ImageView(new Image("GUI/Resources/cube.png"));
+        ImageView logo = new ImageView(new Image("Sudoku/GUI/Resources/cube.png"));
         logo.setFitHeight(30);
         logo.setFitWidth(30);
         titleBox.getChildren().add(logo);
@@ -111,8 +111,21 @@ public class MainView {
         solve.setPrefHeight(35);
         solve.getStyleClass().add("button");
         solve.setOnAction((ae) -> controller.solveSudoku());
+
+        Button play = new Button("Play Sudoku");
+        play.setPrefHeight(35);
+        play.getStyleClass().add("button");
+        play.setOnAction((ae) -> {
+            try {
+                controller.switchToPlayView();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        });
+
         buttons.getChildren().add(clear);
         buttons.getChildren().add(solve);
+        buttons.getChildren().add(play);
         return buttons;
     }
 }

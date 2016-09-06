@@ -1,4 +1,4 @@
-package Solver.Methods;
+package Sudoku.Solver.Methods;
 
 /**
  * This interface will have the required method signatures to solve a sudoku board.
