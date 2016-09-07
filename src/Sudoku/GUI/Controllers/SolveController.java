@@ -101,7 +101,7 @@ public class SolveController {
     //TODO verify both rows and columns
     //TODO BUG! It says any 2 numbers are wrong
     private boolean inputCheck() {
-            Set<String> textColumnSet = new HashSet<>();
+            /*Set<String> textColumnSet = new HashSet<>();
             int inputs = 0;
         for (TextField[] textColumn : boardField){
             for (TextField textField : textColumn){
@@ -111,7 +111,7 @@ public class SolveController {
                 }
             }
             if(textColumnSet.size() != inputs ) {return false;}
-        }
+        }*/
         return true;
     }
 
