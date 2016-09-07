@@ -94,12 +94,12 @@ public class PlayView {
         buttons.setPadding(new Insets(10, 0, 10, 0));
         buttons.setSpacing(25);
 
-        Button clear = new Button("Clear Board");
+        Button clear = new Button("New Game");
         clear.setOnAction((ae) -> controller.clearBoard());
         clear.setPrefHeight(35);
         clear.getStyleClass().add("button");
 
-        Button solve = new Button("Solve");
+        Button solve = new Button("Check");
         solve.setPrefHeight(35);
         solve.getStyleClass().add("button");
         solve.setOnAction((ae) -> controller.solveSudoku());
