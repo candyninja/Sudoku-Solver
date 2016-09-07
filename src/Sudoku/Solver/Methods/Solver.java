@@ -21,104 +21,36 @@ public class Solver implements Solvable {
 
     // x is row number, y is column number. Returns true if check is a possible answer at that location
     public boolean checkCandidate(int x, int y, int check, int[][] sudoku) {
-        boolean possible = true;
+        //Checks if any duplicates are present in its row
         for (int k = 0; k < 9; k++) {
             if (k != y) {
-                if (sudoku[x][k] == check) {
-                    possible = false;
-                }
+                if (sudoku[x][k] == check)
+                    return false;
             }
         }
 
+        //Checks if any duplicates are present in its column
         for (int k = 0; k < 9; k++) {
             if (k != x) {
-                if (sudoku[k][y] == check) {
-                    possible = false;
-                }
+                if (sudoku[k][y] == check)
+                    return false;
             }
         }
 
-        if (x < 3 && y < 3) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (sudoku[i][j] == check)
-                        possible = false;
-                }
-            }
-
-        } else if (x < 6 && y < 3) {
-            for (int i = 3; i < 6; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
-                    }
-                }
-            }
-
-        } else if (x < 9 && y < 3) {
-            for (int i = 6; i < 9; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
-                    }
-                }
-            }
-
-        } else if (x < 3 && y < 6) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 3; j < 6; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
-                    }
-                }
-            }
-
-        } else if (x < 6 && y < 6) {
-            for (int i = 3; i < 6; i++) {
-                for (int j = 3; j < 6; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
-                    }
-                }
-            }
-
-        } else if (x < 9 && y < 6) {
-            for (int i = 6; i < 9; i++) {
-                for (int j = 3; j < 6; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
-                    }
-                }
-            }
-
-        } else if (x < 3 && y < 9) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 6; j < 9; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
-                    }
-                }
-            }
-
-        } else if (x < 6 && y < 9) {
-            for (int i = 3; i < 6; i++) {
-                for (int j = 6; j < 9; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
-                    }
-                }
-            }
-
-        } else {
-            for (int i = 6; i < 9; i++) {
-                for (int j = 6; j < 9; j++) {
-                    if (sudoku[i][j] == check) {
-                        possible = false;
+        //Checks if any duplicates are present in its 3x3 grid
+        for (int i = 0; i < 9; i += 3) {
+            for (int j = 0; j < 9; j += 3) {
+                if (x > (i - 1) && x < (i + 3) && y > (j - 1) && y < (j + 3)) {
+                    for (int k = i; k < (i + 3); k++) {
+                        for (int l = j; l < (j + 3); l++) {
+                            if (sudoku[k][l] == check)
+                                return false;
+                        }
                     }
                 }
             }
         }
-        return possible;
+        return true;
     }
 
     public void solve() {
@@ -131,6 +63,7 @@ public class Solver implements Solvable {
             }
         }
 
+        //Iterates over all grid locations
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 gotCandidate = false;
@@ -153,7 +86,7 @@ public class Solver implements Solvable {
                         }
                     }
 
-                    // sets iteration to previous cell if no candidates are possible
+                    // sets iteration to previous editable cell if no candidates are possible
                     if (!gotCandidate) {
                         solution[i][j] = 0;
                         if (j != 0) {
@@ -164,8 +97,6 @@ public class Solver implements Solvable {
                             }
                             j = 8;
                         }
-
-                        //If previous cell is a part of the original sudoku puzzle then sets iteration to previous cell again
                         while (sudoku[i][j] != 0) {
                             if (j == 0) {
                                 if (i != 0) {
@@ -176,15 +107,12 @@ public class Solver implements Solvable {
                                 j--;
                             }
                         }
-
-                        //sets iteration to previous cell again since for loop will set it to next cell.
                         if (j != 0) {
                             j--;
                         } else {
                             i--;
                             j = 8;
                         }
-
                     }
                 }
             }

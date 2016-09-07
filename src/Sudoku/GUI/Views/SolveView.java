@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class SolveView {
@@ -51,7 +52,7 @@ public class SolveView {
 
     private HBox titleBox() {
         HBox titleBox = new HBox();
-        HBox.setHgrow(titleBox, Priority.ALWAYS);
+        HBox.setHgrow(titleBox, Priority.NEVER);
         titleBox.setAlignment(Pos.CENTER);
         titleBox.setSpacing(10);
         titleBox.setPadding(new Insets(15, 0, 15, 0));
@@ -64,6 +65,7 @@ public class SolveView {
         Text title = new Text("Sudoku Solver");
         title.getStyleClass().add("title");
         title.setFill(Color.ALICEBLUE);
+        title.setTextAlignment(TextAlignment.RIGHT);
 
         titleBox.getChildren().add(title);
         return titleBox;
@@ -74,7 +76,6 @@ public class SolveView {
         HBox.setHgrow(mainContainer, Priority.ALWAYS);
         mainContainer.setAlignment(Pos.CENTER);
 
-        //TODO fix the small padding issue on the right side - right is larger than left side.
         GridPane grid = new GridPane();
         grid.setHgap(4);
         grid.setVgap(4);
@@ -96,8 +97,8 @@ public class SolveView {
         HBox buttons = new HBox();
         HBox.setHgrow(buttons, Priority.ALWAYS);
         buttons.setAlignment(Pos.CENTER);
-        buttons.setPadding(new Insets(0, 0, 20, 0));
-        buttons.setSpacing(50);
+        buttons.setPadding(new Insets(10, 10, 10, 10));
+        buttons.setSpacing(25);
 
         Button clear = new Button("Clear Board");
         clear.setOnAction((ae) -> controller.clearBoard());
@@ -111,6 +112,7 @@ public class SolveView {
 
         Button play = new Button("Play Sudoku");
         play.setPrefHeight(35);
+        play.setMinWidth(100);
         play.getStyleClass().add("button");
         play.setOnAction((ae) -> {
             try {

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 * This class does should not contain any methods or functionality.
 * This will only call the JavaFX Application to show.
 * */
-//TODO fix bug where stage change makes new window
+
 public class Launch extends Application {
     public static void main(String[] args) {
         TestSolver testSudoku = new TestSolver();
@@ -22,6 +22,7 @@ public class Launch extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         setStage(primaryStage,new SolveView(primaryStage).getScene(), "Solve Sudoku");
+        primaryStage.sizeToScene();
         primaryStage.show();
     }
 
