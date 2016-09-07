@@ -1,13 +1,13 @@
 package Sudoku.GUI.Views;
 /*
-* MainView is the first user-facing UI to be displayed.
+* SolveView is the first user-facing UI to be displayed.
 * Any View classes should not contain functional code,
 * the purpose of View classes are to organize methods
 * and elements necessary for displaying user-facing
 * elements.
  */
 
-import Sudoku.GUI.Controllers.MainController;
+import Sudoku.GUI.Controllers.SolveController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,11 +23,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MainView {
-    private MainController controller = new MainController();
-    private Stage mainStage = new Stage();
-
-
+public class SolveView {
+    private Stage primaryStage;
+    private SolveController controller;
+    public SolveView(Stage primaryStage){
+        this.primaryStage = primaryStage;
+        controller = new SolveController(primaryStage);
+    }
     /**
      * This is the main access point for
      * displayable content, all visible
@@ -35,21 +37,16 @@ public class MainView {
      * stage.
      */
 
-    public Stage getStage() throws NoSuchMethodException {
-        mainStage.resizableProperty().setValue(false);
-
+    public Scene getScene() throws NoSuchMethodException {
+        primaryStage.resizableProperty().setValue(false);
         BorderPane root = new BorderPane();
         root.getStyleClass().add("root");
-
         root.setTop(titleBox());
         root.setCenter(mainContainer());
         root.setBottom(buttons());
-
         Scene mainScene = new Scene(root, 350, 450, Color.TRANSPARENT);
-        mainStage.setScene(mainScene);
         mainScene.getStylesheets().add(this.getClass().getResource("/Sudoku/GUI/Resources/MainView.css").toExternalForm());
-
-        return mainStage;
+        return mainScene;
     }
 
     private HBox titleBox() {

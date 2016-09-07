@@ -1,8 +1,9 @@
 package Sudoku;
 
-import Sudoku.GUI.Views.MainView;
+import Sudoku.GUI.Views.SolveView;
 import Sudoku.Solver.Methods.TestSolver;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -12,28 +13,21 @@ import javafx.stage.Stage;
 * */
 //TODO fix bug where stage change makes new window
 public class Launch extends Application {
-    Stage oldStage = null;
     public static void main(String[] args) {
         TestSolver testSudoku = new TestSolver();
         testSudoku.doTest();
         launch(args);
-
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        setStage(new MainView().getStage(), "Solve Sudoku");
+        setStage(primaryStage,new SolveView(primaryStage).getScene(), "Solve Sudoku");
+        primaryStage.show();
     }
 
-    public void setStage(Stage newStage, String title) {
-        if(oldStage == null){
-            oldStage = newStage;
-            setStage(newStage,title);
-        } else {
-            oldStage.hide();
-            newStage.setTitle(title);
-            newStage.getIcons().add(new Image("Sudoku/GUI/Resources/cube.png"));
-            newStage.show();
-        }
+    public void setStage(final Stage primaryStage, Scene newScene, String title) {
+            primaryStage.setTitle(title);
+            primaryStage.getIcons().add(new Image("Sudoku/GUI/Resources/cube.png"));
+            primaryStage.setScene(newScene);
     }
 }

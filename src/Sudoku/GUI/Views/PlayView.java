@@ -1,16 +1,10 @@
 package Sudoku.GUI.Views;
-/*
-* MainView is the first user-facing UI to be displayed.
-* Any View classes should not contain functional code,
-* the purpose of View classes are to organize methods
-* and elements necessary for displaying user-facing
-* elements.
- */
 
-import Sudoku.GUI.Controllers.MainController;
+import Sudoku.GUI.Controllers.PlayController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -24,32 +18,29 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PlayView {
-    private MainController controller = new MainController();
-    private Stage mainStage = new Stage();
-
-
+    private Stage primaryStage;
+    private PlayController controller;
+    public PlayView(Stage primaryStage){
+        this.primaryStage = primaryStage;
+        controller = new PlayController(primaryStage);
+    }
     /**
      * This is the main access point for
      * displayable content, all visible
      * elements should be included in the
      * stage.
      */
-
-    public Stage getStage() throws NoSuchMethodException {
-        mainStage.resizableProperty().setValue(false);
-
+    //TODO figure out why window size changes
+    public Scene getScene() throws NoSuchMethodException {
+        primaryStage.resizableProperty().setValue(false);
         BorderPane root = new BorderPane();
         root.getStyleClass().add("root");
-
         root.setTop(titleBox());
         root.setCenter(mainContainer());
         root.setBottom(buttons());
-
         Scene mainScene = new Scene(root, 350, 450, Color.TRANSPARENT);
-        mainStage.setScene(mainScene);
         mainScene.getStylesheets().add(this.getClass().getResource("/Sudoku/GUI/Resources/MainView.css").toExternalForm());
-
-        return mainStage;
+        return mainScene;
     }
 
     private HBox titleBox() {
@@ -112,12 +103,12 @@ public class PlayView {
         solve.getStyleClass().add("button");
         solve.setOnAction((ae) -> controller.solveSudoku());
 
-        Button play = new Button("Play Sudoku");
+        Button play = new Button("Solve Sudoku");
         play.setPrefHeight(35);
         play.getStyleClass().add("button");
         play.setOnAction((ae) -> {
             try {
-                controller.switchToPlayView();
+                controller.switchToSolveView();
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }

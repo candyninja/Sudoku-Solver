@@ -8,19 +8,25 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
 import java.util.HashSet;
 import java.util.Set;
 
 
 /*
- * The MainController is meant to host all
- * functionality of the MainView.
+ * The SolveController is meant to host all
+ * functionality of the SolveView.
  */
-public class MainController {
+public class SolveController {
 
     private TextField[][] boardField = new TextField[9][9];
     private Solver solver = new Solver();
+    private final Stage primaryStage;
 
+    public SolveController(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
     /* Automatically adds TextFields to the board when they're created. They should be
     * dynamic and used with the getText method. */
     public void addBoardField(int pos1, int pos2, TextField textField) {
@@ -93,7 +99,7 @@ public class MainController {
     }
 
     //TODO verify both rows and columns
-    //TODO BUG! It says any board with 2 of the same number is invalid.
+    //TODO BUG! It says any 2 numbers are wrong
     private boolean inputCheck() {
             Set<String> textColumnSet = new HashSet<>();
             int inputs = 0;
@@ -144,7 +150,7 @@ public class MainController {
 
     public void switchToPlayView() throws NoSuchMethodException {
         Launch launch = new Launch();
-        launch.setStage(new PlayView().getStage(),"Play Sudoku");
+        launch.setStage(primaryStage,new PlayView(primaryStage).getScene(),"Play Sudoku");
     }
     /* Used for textFields that are displayed as a solution */
     private void disableTextField(TextField textField) {
