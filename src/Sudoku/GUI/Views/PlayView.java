@@ -4,7 +4,6 @@ import Sudoku.GUI.Controllers.PlayController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class PlayView {
@@ -30,7 +30,7 @@ public class PlayView {
      * elements should be included in the
      * stage.
      */
-    //TODO figure out why window size changes
+
     public Scene getScene() throws NoSuchMethodException {
         primaryStage.resizableProperty().setValue(false);
         BorderPane root = new BorderPane();
@@ -43,9 +43,10 @@ public class PlayView {
         return mainScene;
     }
 
+    //TODO fix the shift to the right from Solve View
     private HBox titleBox() {
         HBox titleBox = new HBox();
-        HBox.setHgrow(titleBox, Priority.ALWAYS);
+        HBox.setHgrow(titleBox, Priority.NEVER);
         titleBox.setAlignment(Pos.CENTER);
         titleBox.setSpacing(10);
         titleBox.setPadding(new Insets(15, 0, 15, 0));
@@ -58,6 +59,7 @@ public class PlayView {
         Text title = new Text("Sudoku Player");
         title.getStyleClass().add("title");
         title.setFill(Color.ALICEBLUE);
+        title.setTextAlignment(TextAlignment.RIGHT);
 
         titleBox.getChildren().add(title);
         return titleBox;
@@ -68,7 +70,6 @@ public class PlayView {
         HBox.setHgrow(mainContainer, Priority.ALWAYS);
         mainContainer.setAlignment(Pos.CENTER);
 
-        //TODO fix the small padding issue on the right side - right is larger than left side.
         GridPane grid = new GridPane();
         grid.setHgap(4);
         grid.setVgap(4);
@@ -90,8 +91,8 @@ public class PlayView {
         HBox buttons = new HBox();
         HBox.setHgrow(buttons, Priority.ALWAYS);
         buttons.setAlignment(Pos.CENTER);
-        buttons.setPadding(new Insets(0, 0, 20, 0));
-        buttons.setSpacing(50);
+        buttons.setPadding(new Insets(10, 0, 10, 0));
+        buttons.setSpacing(25);
 
         Button clear = new Button("Clear Board");
         clear.setOnAction((ae) -> controller.clearBoard());
@@ -105,6 +106,7 @@ public class PlayView {
 
         Button play = new Button("Solve Sudoku");
         play.setPrefHeight(35);
+        play.setMinWidth(100);
         play.getStyleClass().add("button");
         play.setOnAction((ae) -> {
             try {
