@@ -27,10 +27,12 @@ import javafx.stage.Stage;
 public class SolveView {
     private Stage primaryStage;
     private SolveController controller;
-    public SolveView(Stage primaryStage){
+
+    public SolveView(Stage primaryStage) {
         this.primaryStage = primaryStage;
         controller = new SolveController(primaryStage);
     }
+
     /**
      * This is the main access point for
      * displayable content, all visible
@@ -85,7 +87,7 @@ public class SolveView {
                 TextField textField = controller.createTextField();
                 controller.formatTextField(textField);
                 controller.addBoardField(j - 1, i - 1, textField);
-                controller.formatBoard(i,j,textField);
+                controller.formatBoard(i, j, textField);
                 grid.addRow(i, textField);
             }
         }
