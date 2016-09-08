@@ -9,7 +9,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 /*
@@ -19,8 +18,8 @@ import java.util.Set;
 
 public class MainController {
     final Stage primaryStage;
-    private Solver solver = new Solver();
-    private TextField[][] boardField = new TextField[9][9];
+    private final Solver solver = new Solver();
+    private final TextField[][] boardField = new TextField[9][9];
 
     MainController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -34,13 +33,14 @@ public class MainController {
     }
 
     /* Ensures each TextField only contains 1 character, and that is is a number. */
-    private void limitInput(TextField textField, int maxLength) {
+    private void limitInput(TextField textField) {
         textField.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (textField.getText().length() > maxLength) {
-                String s = textField.getText().substring(0, maxLength);
+            if (textField.getText().length() > 1) {
+                String s = textField.getText().substring(0, 1);
                 textField.setText(s);
             }
             try {
+                //noinspection ResultOfMethodCallIgnored
                 Integer.parseInt(textField.getText());
             } catch (NumberFormatException | NullPointerException e) {
                 textField.setText("");
@@ -51,7 +51,7 @@ public class MainController {
     /* Creates a TextField for the board. */
     public TextField createTextField() {
         TextField textField = new TextField();
-        limitInput(textField, 1);
+        limitInput(textField);
         return textField;
     }
 
@@ -179,10 +179,6 @@ public class MainController {
         }
     }
 
-    public int numberGen(){
-        Random r = new Random();
-        return r.nextInt((8) + 1) + 1;
-    }
 
     /* Used for textFields that are displayed as a solution */
     private void disableTextField(TextField textField) {

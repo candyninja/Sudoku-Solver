@@ -14,7 +14,7 @@ public class SolveController extends MainController {
         super(primaryStage);
     }
 
-    public void switchToPlayView() throws NoSuchMethodException {
+    public void switchToPlayView() {
         Launch launch = new Launch();
         launch.setStage(primaryStage, new PlayView(primaryStage).getScene(), "Play Sudoku");
     }

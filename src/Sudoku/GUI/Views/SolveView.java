@@ -25,8 +25,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class SolveView {
-    private Stage primaryStage;
-    private SolveController controller;
+    private final Stage primaryStage;
+    private final SolveController controller;
 
     public SolveView(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -40,7 +40,7 @@ public class SolveView {
      * stage.
      */
 
-    public Scene getScene() throws NoSuchMethodException {
+    public Scene getScene() {
         primaryStage.resizableProperty().setValue(false);
         BorderPane root = new BorderPane();
         root.getStyleClass().add("root");
@@ -95,7 +95,7 @@ public class SolveView {
         return mainContainer;
     }
 
-    private HBox buttons() throws NoSuchMethodException {
+    private HBox buttons() {
         HBox buttons = new HBox();
         HBox.setHgrow(buttons, Priority.ALWAYS);
         buttons.setAlignment(Pos.CENTER);
@@ -116,13 +116,7 @@ public class SolveView {
         play.setPrefHeight(35);
         play.setMinWidth(100);
         play.getStyleClass().add("button");
-        play.setOnAction((ae) -> {
-            try {
-                controller.switchToPlayView();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-        });
+        play.setOnAction((ae) -> controller.switchToPlayView());
 
         buttons.getChildren().add(clear);
         buttons.getChildren().add(solve);

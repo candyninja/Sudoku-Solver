@@ -1,16 +1,14 @@
 package Sudoku.Solver.Methods;
 
+import java.util.Random;
+
 /**
  * All the code that solves a sudoku board.
  */
 //TODO try to minimize code -- make more simple, modular, etc.
-public class Solver implements Solvable {
+public class Solver {
+    private final int[][] solution = new int[9][9];
     private int[][] sudoku = new int[9][9];
-    private int[][] solution = new int[9][9];
-
-    public int[][] getSudoku() {
-        return sudoku;
-    }
 
     public void setSudoku(int[][] sudoku) {
         this.sudoku = sudoku;
@@ -21,11 +19,11 @@ public class Solver implements Solvable {
     }
 
     // x is row number, y is column number. Returns true if check is a possible answer at that location
-    public boolean checkCandidate(int x, int y, int check, int[][] sudoku) {
+    boolean checkCandidate(int x, int y, int check) {
         //Checks if any duplicates are present in its row
         for (int k = 0; k < 9; k++) {
             if (k != y) {
-                if (sudoku[x][k] == check)
+                if (solution[x][k] == check)
                     return false;
             }
         }
@@ -33,7 +31,7 @@ public class Solver implements Solvable {
         //Checks if any duplicates are present in its column
         for (int k = 0; k < 9; k++) {
             if (k != x) {
-                if (sudoku[k][y] == check)
+                if (solution[k][y] == check)
                     return false;
             }
         }
@@ -44,7 +42,7 @@ public class Solver implements Solvable {
                 if (x > (i - 1) && x < (i + 3) && y > (j - 1) && y < (j + 3)) {
                     for (int k = i; k < (i + 3); k++) {
                         for (int l = j; l < (j + 3); l++) {
-                            if (sudoku[k][l] == check)
+                            if (solution[k][l] == check)
                                 return false;
                         }
                     }
@@ -59,9 +57,7 @@ public class Solver implements Solvable {
 
         //Copies Values of sudoku into solution
         for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                solution[i][j] = sudoku[i][j];
-            }
+            System.arraycopy(sudoku[i], 0, solution[i], 0, 9);
         }
 
         //Iterates over all grid locations
@@ -73,14 +69,14 @@ public class Solver implements Solvable {
                 if (sudoku[i][j] == 0) {
                     if (solution[i][j] == 0) {
                         for (int k = 1; k < 10 && !gotCandidate; k++) {
-                            if (checkCandidate(i, j, k, solution)) {
+                            if (checkCandidate(i, j, k)) {
                                 solution[i][j] = k;
                                 gotCandidate = true;
                             }
                         }
                     } else {
                         for (int k = (solution[i][j] + 1); k < 10 && !gotCandidate; k++) {
-                            if (checkCandidate(i, j, k, solution)) {
+                            if (checkCandidate(i, j, k)) {
                                 solution[i][j] = k;
                                 gotCandidate = true;
                             }
@@ -118,5 +114,10 @@ public class Solver implements Solvable {
                 }
             }
         }
+    }
+
+    public int numberGen() {
+        Random r = new Random();
+        return r.nextInt((8) + 1) + 1;
     }
 }
