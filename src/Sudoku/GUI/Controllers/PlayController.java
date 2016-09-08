@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  */
 public class PlayController extends MainController {
 
-    public PlayController (Stage primaryStage){
+    public PlayController(Stage primaryStage) {
         super(primaryStage);
     }
 

@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /*
@@ -176,6 +177,11 @@ public class MainController {
         } else {
             showInputWarning();
         }
+    }
+
+    public int numberGen(){
+        Random r = new Random();
+        return r.nextInt((8) + 1) + 1;
     }
 
     /* Used for textFields that are displayed as a solution */
