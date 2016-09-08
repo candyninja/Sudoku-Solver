@@ -19,8 +19,6 @@ public class Launch extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         setStage(primaryStage, new SolveView(primaryStage).getScene(), "Solve Sudoku");
-        primaryStage.setMaxWidth(350);
-        primaryStage.setMaxHeight(480);
         primaryStage.sizeToScene();
         primaryStage.show();
     }
